@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+ body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(to right, #ffcc00, #ff99cc); /* Example gradient colors */
+}
+
+
+#data {
+  position: relative;
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff; /* Choose your desired color */
+}
+
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    #requestButton {
+      
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: -15px;
+      margin-left: -930px;
+      border-radius: 5px;
+    }
+
+    #requestForm {
+      display: none;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+    }
+
+    #requestForm label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #requestForm input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    #submitForm {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+  </style>
+</head>
+<body>
+ 
+  <div id="data">
+    <h3 th:text="${name}"></h3> 
+    <table>
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Designation</th>
+                <th>Raised On</th>
+                <th>Status</th>
+                <th>Close On</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr th:each="jobRequester : ${jobRequesterList}">
+                <td th:text="${jobRequester.sr_no}"></td>
+                <td th:text="${jobRequester.designation}"></td>
+                <td th:text="${jobRequester.raised_no}"></td>
+                <td th:text="${jobRequester.status}"></td>
+                <td th:text="${jobRequester.close_no}"></td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+  
+  <button id="requestButton" onclick="showForm()">Add new request</button>
+
+
+
+  <div id="requestForm">
+    <form action="newRequest" method="post">
+      <label for="name">Job Designation:</label>
+      <input type="text" id="name" name="designation" required>
+
+      <label for="department">Department:</label>
+      <input type="text" id="email" name="department" required>
+
+      <label for="jobRole">Job Role:</label>
+      <input type="text" id="email" name="job_role" required>
+
+         
+        <label for="education">Educational Background:</label>
+        <input list="ed" name="educational_background" required>
+        <datalist id="ed">
+            <option value="BCA/B.sc" />
+            <option value="B.tech/MCA" />
+            <option value="M.tech" />
+            <option value="Graduation" />
+        </datalist>
+
+      
+      <label for="experience">Experience:</label>
+      <input type="text" id="experience" name="experience" required>
+        
+
+        <label for="priority">Priority:</label>
+        <input type="text" id="priority" name="priority" required>
+        
+        <label for="requesterName">Enter Your Name:</label>
+        <input type="text" id="requesterName" name="requesterName"  required>
+
+       
+      <button id="submitForm" type="submit">Submit</button>
+    </form>
+  
+</div>
+
+  
+    <script>
+    function showForm() {
+        var form = document.getElementById("requestForm");
+        form.style.display = (form.style.display === "none") ? "block" : "none";
+    }
+
+
+  </script>
+
+</body>
+</html>
